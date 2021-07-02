@@ -13,7 +13,7 @@ function Index({ data, pages }) {
 
 export async function getServerSideProps() {
   const res = await fetch(
-    `https://www.cheapshark.com/api/1.0/deals?pgeNumber=0`
+    `https://www.cheapshark.com/api/1.0/deals?sortBy=Metacritic`
   );
   const data = await res.json();
 

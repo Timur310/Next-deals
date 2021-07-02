@@ -111,7 +111,7 @@ const game = ({ data, dealData }) => {
                     <tbody className="shadow-lg bg-white divide-y divide-gray-200">
                       {dealData.deals.map(function (deal, idx) {
                         return (
-                          <tr onClick={() => router.push("/deal" + `/${deal.dealID}`)} key={idx} className="transition duration-500 ease-in-out transform-gpu hover:-translate-y-1 hover:scale-105 cursor-pointer">
+                          <tr onClick={() => router.push(`https://www.cheapshark.com/redirect?dealID=${deal.dealID}`)} key={idx} className="transition duration-500 ease-in-out transform-gpu hover:-translate-y-1 hover:scale-105 cursor-pointer">
                             <td className="px-6 py-4 whitespace-nowrap">
                               <div className="flex items-center">
                                 <div className="ml-4">

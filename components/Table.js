@@ -5,26 +5,24 @@ function fixedPercentage(n) {
   return parseInt(n).toFixed(0) + "%";
 }
 
-function Table({ data }) {
+function Table({data}) {
   const router = useRouter();
-  const [value, setValue] = useState("");
+  const [searchvalue, setValue] = useState(null);
   const [myData, setData] = useState(data);
 
-  async function searchData(event, value) {
-    if (value) {
-      const res = await fetch(
-        `https://www.cheapshark.com/api/1.0/games?title=${value}`
-      );
-      const newData = await res.json();
-      setData(newData);
+
+  function searchData() {
+    if (searchvalue) {
+      fetch(`https://www.cheapshark.com/api/1.0/games?title=${searchvalue}`)
+        .then((response) => response.json())
+        .then((data) => setData(data));
     } else {
-      const res = await fetch(
-        `https://www.cheapshark.com/api/1.0/deals?pgeNumber=0`
-      );
-      const newData = await res.json();
-      setData(newData);
+      fetch("https://www.cheapshark.com/api/1.0/deals?sortBy=Metacritic")
+        .then((response) => response.json())
+        .then((data) => setData(data));
     }
   }
+
 
   return (
     <div>
@@ -35,10 +33,8 @@ function Table({ data }) {
           </span>
           <input
             onChange={(e) => {
-              setValue(e.currentTarget.value);
-            }}
-            onKeyUp={(event) => {
-              searchData(event, value);
+              setValue(e.target.value);
+              searchData();
             }}
             type="text"
             placeholder="Search specific game"
@@ -52,7 +48,7 @@ function Table({ data }) {
           <div className="overflow-auto lg:overflow-visible ">
             <table className="table text-myonelight2 border-separate space-y-6 text-sm">
               <thead className="bg-myone text-myonelight2">
-                {value ? (
+                {searchvalue ? (
                   <tr>
                     <th className="p-3">Title</th>
                     <th className="p-3 text-left">Cheapest price</th>
@@ -69,7 +65,7 @@ function Table({ data }) {
               </thead>
               <tbody>
                 {myData.map(function (deal, idx) {
-                  return value ? (
+                  return searchvalue ? (
                     <tr
                       onClick={() => router.push("/game" + `/${deal.gameID}`)}
                       key={idx}
@@ -139,6 +135,17 @@ function Table({ data }) {
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  const res = await fetch(
+    `https://www.cheapshark.com/api/1.0/deals?sortBy=Metacritic`
+  );
+  const data = await res.json();
+
+  return {
+    props: { data: data, pages: res.headers.get("x-total-page-count") },
+  };
 }
 
 export default Table;
