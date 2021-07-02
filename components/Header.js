@@ -26,7 +26,7 @@ function Header() {
         <div className="container px-5 py-4 mx-auto">
           <div className="flex flex-col text-center w-full">
             <h2 className="text-xs text-myonelight2 tracking-widest font-medium title-font mb-1">
-              Best game prices acros 32 stores
+              Best game prices across 32 stores
             </h2>
             <h1 className="sm:text-3xl text-2xl font-medium title-font text-myonelighter">
             Powered with NextJS and CheapSharkApi
