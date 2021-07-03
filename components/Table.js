@@ -19,18 +19,35 @@ function Table({ data }) {
   const [apiData, setApiData] = useState(data);
   const [loading, setLoading] = useState(false);
 
-  function fetchNextPage(nextPage) {
+  function fetchNextPage(nextPage, isSearch, searchinput) {
     window.scrollTo(0, 0);
     setLoading(true);
     setPage(nextPage);
-    fetch(
-      `https://www.cheapshark.com/api/1.0/deals?sortBy=Metacritic&pageNumber=${nextPage}`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setApiData(data);
-        setLoading(false);
-      });
+    if (isSearch) {
+      fetch(
+        `https://www.cheapshark.com/api/1.0/deals?sortBy=recent&title=${searchinput}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setApiData(data);
+          setLoading(false);
+        });
+    } else {
+      fetch(
+        `https://www.cheapshark.com/api/1.0/deals?sortBy=recent&pageNumber=${nextPage}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setApiData(data);
+          setLoading(false);
+        });
+    }
+  }
+
+  function _handleKeyDown(e) {
+    if (e.key === "Enter") {
+      fetchNextPage(0, true, e.target.value);
+    }
   }
 
   return (
@@ -38,6 +55,16 @@ function Table({ data }) {
       <div className="flex items-center justify-center">
         <div className="col-span-12">
           <div className="overflow-auto lg:overflow-visible ">
+            <div class="shadow flex">
+              <input
+                class="w-full rounded p-2 focus:outline-none"
+                type="text"
+                placeholder="Search specific game"
+                onKeyDown={(e) => {
+                  _handleKeyDown(e);
+                }}
+              />
+            </div>
             {loading ? (
               <div className="sweet-loading">
                 <BounceLoader
@@ -113,7 +140,7 @@ function Table({ data }) {
         <button
           className="btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-purple-700 hover:bg-purple-900 text-white font-normal py-2 px-4 mr-1 rounded"
           onClick={() => {
-            fetchNextPage(page - 1);
+            fetchNextPage(page - 1, false, null);
           }}
         >
           Previous Page
@@ -121,7 +148,7 @@ function Table({ data }) {
         <button
           className="btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-purple-700 hover:bg-purple-900 text-white font-normal py-2 px-4 mr-1 rounded"
           onClick={() => {
-            fetchNextPage(page + 1);
+            fetchNextPage(page + 1, false, null);
           }}
         >
           Next Page
@@ -133,12 +160,12 @@ function Table({ data }) {
 
 export async function getServerSideProps() {
   const res = await fetch(
-    `https://www.cheapshark.com/api/1.0/deals?sortBy=Metacritic`
+    `https://www.cheapshark.com/api/1.0/deals?sortBy=recent`
   );
   const data = await res.json();
 
   return {
-    props: { data: data, page_count: res.headers.get("x-total-page-count") },
+    props: { data },
   };
 }
 

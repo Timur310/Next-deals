@@ -1,6 +1,8 @@
 import React from "react";
+import { useRouter } from "next/router";
 
 function Header() {
+  const router = useRouter();
   return (
     <div>
       <header className="text-gray-600 body-font">
