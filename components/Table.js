@@ -18,7 +18,6 @@ function Table({ data }) {
   const [page, setPage] = useState(0);
   const [apiData, setApiData] = useState(data);
   const [loading, setLoading] = useState(false);
-  const [color, setColor] = useState("#ffffff");
 
   function fetchNextPage(nextPage) {
     window.scrollTo(0, 0);
@@ -67,6 +66,7 @@ function Table({ data }) {
                         onClick={() => router.push("/game" + `/${deal.gameID}`)}
                         key={idx}
                         className="shadow-lg text-myonelight2 hover:shadow-2xl transition duration-500 ease-in-out bg-myone hover:bg-gray-700 transform-gpu hover:-translate-y-1 hover:scale-105 cursor-pointer"
+                        data-aos="zoom-in"
                       >
                         <td className="p-3">
                           <div className="flex align-items-center">
@@ -109,22 +109,24 @@ function Table({ data }) {
           </div>
         </div>
       </div>
-      <button
-        className="btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-purple-700 hover:bg-purple-900 text-white font-normal py-2 px-4 mr-1 rounded"
-        onClick={() => {
-          fetchNextPage(page - 1);
-        }}
-      >
-        Previous Page
-      </button>
-      <button
-        className="btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-purple-700 hover:bg-purple-900 text-white font-normal py-2 px-4 mr-1 rounded"
-        onClick={() => {
-          fetchNextPage(page + 1);
-        }}
-      >
-        Next Page
-      </button>
+      <div className="flex justify-evenly p-3">
+        <button
+          className="btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-purple-700 hover:bg-purple-900 text-white font-normal py-2 px-4 mr-1 rounded"
+          onClick={() => {
+            fetchNextPage(page - 1);
+          }}
+        >
+          Previous Page
+        </button>
+        <button
+          className="btn-primary transition duration-300 ease-in-out focus:outline-none focus:shadow-outline bg-purple-700 hover:bg-purple-900 text-white font-normal py-2 px-4 mr-1 rounded"
+          onClick={() => {
+            fetchNextPage(page + 1);
+          }}
+        >
+          Next Page
+        </button>
+      </div>
     </div>
   );
 }
