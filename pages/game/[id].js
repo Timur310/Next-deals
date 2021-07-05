@@ -35,10 +35,7 @@ const game = ({ data, dealData }) => {
       <div className="p-5">
         <section
           style={{
-            backgroundImage:
-              "url(" +
-              info.data.background +
-              ")",
+            backgroundImage: "url(" + info.data.background + ")",
             backgroundPosition: "center",
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
@@ -75,7 +72,7 @@ const game = ({ data, dealData }) => {
                     {info.data.price_overview.final_formatted}
                   </div>
                 ) : (
-                  <div>Not avaliable</div>
+                  <div className="text-white">Not avaliable</div>
                 )}
 
                 <div className="text-myonelight2 text-3xl title-font font-medium mb-1">
@@ -102,80 +99,7 @@ const game = ({ data, dealData }) => {
           </div>
         </section>
 
-        <section className="flex justify-center">
-          <div className="flex flex-col">
-            <div className="my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-              <div className="py-2 align-middle inline-block w-auto sm:px-6 lg:px-8">
-                <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                  <table className="w-auto divide-y divide-myonelight">
-                    <thead className="bg-myone">
-                      <tr>
-                        <th
-                          scope="col"
-                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                        >
-                          Store
-                        </th>
-                        <th
-                          scope="col"
-                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                        >
-                          Price
-                        </th>
-                        <th
-                          scope="col"
-                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                        >
-                          Saving
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="shadow-lg bg-white divide-y divide-gray-200">
-                      {dealData.deals.map(function (deal, idx) {
-                        return (
-                          <tr
-                            onClick={() =>
-                              router.push(
-                                `https://www.cheapshark.com/redirect?dealID=${deal.dealID}`
-                              )
-                            }
-                            key={idx}
-                            className="transition duration-500 ease-in-out transform-gpu hover:-translate-y-1 hover:scale-105 cursor-pointer"
-                          >
-                            <td className="px-6 py-4 whitespace-nowrap">
-                              <div className="flex items-center">
-                                <div className="ml-4">
-                                  <div className="text-sm font-medium text-gray-900">
-                                    {getStoreName(deal.storeID)}
-                                  </div>
-                                </div>
-                              </div>
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
-                              <div className="text-sm text-gray-900">
-                                Sale: {deal.price}
-                              </div>
-                              <div className="text-sm text-gray-500">
-                                Retail: {deal.retailPrice}
-                              </div>
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
-                              <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                {parseInt(deal.savings)}%
-                              </span>
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <div className="bg-white shadow overflow-hidden sm:rounded-lg">
+        <div className="bg-white shadow overflow-hidden sm:rounded-lg mt-3">
           <div className="px-4 py-5 sm:px-6">
             <h3 className="text-lg leading-6 font-medium text-gray-900">
               Information
@@ -275,6 +199,79 @@ const game = ({ data, dealData }) => {
             </dl>
           </div>
         </div>
+
+        <section className="flex justify-center">
+          <div className="flex flex-col">
+            <div className="my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div className="py-2 align-middle inline-block w-auto sm:px-6 lg:px-8">
+                <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                  <table className="w-auto divide-y divide-myonelight">
+                    <thead className="bg-myone">
+                      <tr>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        >
+                          Store
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        >
+                          Price
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        >
+                          Saving
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="shadow-lg bg-white divide-y divide-gray-200">
+                      {dealData.deals.map(function (deal, idx) {
+                        return (
+                          <tr
+                            onClick={() =>
+                              router.push(
+                                `https://www.cheapshark.com/redirect?dealID=${deal.dealID}`
+                              )
+                            }
+                            key={idx}
+                            className="transition duration-500 ease-in-out transform-gpu hover:-translate-y-1 hover:scale-105 cursor-pointer"
+                          >
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <div className="flex items-center">
+                                <div className="ml-4">
+                                  <div className="text-sm font-medium text-gray-900">
+                                    {getStoreName(deal.storeID)}
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <div className="text-sm text-gray-900">
+                                Sale: {deal.price}
+                              </div>
+                              <div className="text-sm text-gray-500">
+                                Retail: {deal.retailPrice}
+                              </div>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                {parseInt(deal.savings)}%
+                              </span>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );
