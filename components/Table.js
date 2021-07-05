@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { css } from "@emotion/react";
 import BounceLoader from "react-spinners/BounceLoader";
 import { useRouter } from "next/router";
-import Image from 'next/image'
+import Image from "next/image";
 
 const override = css`
   display: block;
@@ -56,18 +56,22 @@ function Table({ data }) {
       <div className="flex items-center justify-center">
         <div className="col-span-12">
           <div className="overflow-auto lg:overflow-visible ">
-            <div class="shadow flex">
-              <input
-                class="w-full rounded p-2 focus:outline-none"
-                type="text"
-                placeholder="Search specific game"
-                onKeyDown={(e) => {
-                  _handleKeyDown(e);
-                }}
-              />
-            </div>
             {loading ? (
-              <div className="sweet-loading">
+              <div></div>
+            ) : (
+              <div className="shadow flex">
+                <input
+                  className="w-full rounded p-2 focus:outline-none"
+                  type="text"
+                  placeholder="Search specific game"
+                  onKeyDown={(e) => {
+                    _handleKeyDown(e);
+                  }}
+                />
+              </div>
+            )}
+            {loading ? (
+              <div className="p-3">
                 <BounceLoader
                   css={override}
                   size={45}
