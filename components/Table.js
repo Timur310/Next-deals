@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { css } from "@emotion/react";
 import BounceLoader from "react-spinners/BounceLoader";
 import { useRouter } from "next/router";
+import Image from 'next/image'
 
 const override = css`
   display: block;
@@ -97,12 +98,12 @@ function Table({ data }) {
                       >
                         <td className="p-3">
                           <div className="flex align-items-center">
-                            <img
+                            <Image
                               className="rounded-full h-12 w-12 object-cover"
                               src={deal.thumb}
                               alt="image"
-                              width="100"
-                              height="100"
+                              width={75}
+                              height={75}
                             />
                             <div className="ml-3">
                               <div className="font-bold">{deal.title}</div>

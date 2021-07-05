@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
+import Image from "next/image";
 
 const getStoreName = (id) => {
   const [name, setName] = useState("");
@@ -21,7 +22,7 @@ const getStoreName = (id) => {
 };
 
 const game = ({ data, dealData }) => {
-  const router = useRouter()
+  const router = useRouter();
   const steamid = Object.keys(data)[0];
   const info = data[steamid];
 
@@ -32,13 +33,27 @@ const game = ({ data, dealData }) => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <div className="p-5">
-        <section className="shadow-lg rounded-lg text-myonelight body-font overflow-hidden bg-myone">
+        <section
+          style={{
+            backgroundImage:
+              "url(" +
+              info.data.background +
+              ")",
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+          }}
+          className="shadow-lg rounded-sm text-myonelight body-font overflow-hidden bg-myone"
+        >
           <div className="container px-5 py-24 mx-auto">
             <div className="shadow-md bg-myonelight p-3 rounded-lg lg:w-4/5 mx-auto flex flex-wrap">
-              <img
-                alt="ecommerce"
+              <Image
+                alt="Game image"
                 className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded"
                 src={info.data.header_image}
+                width={400}
+                height={400}
+                layout="fixed"
               />
               <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                 <h2 className="text-sm title-font text-white tracking-widest">
@@ -47,14 +62,18 @@ const game = ({ data, dealData }) => {
                 <h1 className="text-myonelight2 text-3xl title-font font-medium mb-1">
                   {info.data.name}
                 </h1>
-                <p className="leading-relaxed text-white">{info.data.short_description}</p>
+                <p className="leading-relaxed text-white">
+                  {info.data.short_description}
+                </p>
                 <div className="flex">
                   <span className="title-font font-medium text-2xl text-myonelight2">
                     Steam price
                   </span>
                 </div>
                 {info.data.price_overview ? (
-                  <div className="text-white">{info.data.price_overview.final_formatted}</div>
+                  <div className="text-white">
+                    {info.data.price_overview.final_formatted}
+                  </div>
                 ) : (
                   <div>Not avaliable</div>
                 )}
@@ -69,7 +88,10 @@ const game = ({ data, dealData }) => {
                 <div>
                   {info.data.genres.map(function (item, idx) {
                     return (
-                      <span style={{backgroundColor: "#22223b"}} className="shadow-md inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 rounded-full">
+                      <span
+                        style={{ backgroundColor: "#22223b" }}
+                        className="shadow-md inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 rounded-full"
+                      >
                         {item.description}
                       </span>
                     );
@@ -111,7 +133,15 @@ const game = ({ data, dealData }) => {
                     <tbody className="shadow-lg bg-white divide-y divide-gray-200">
                       {dealData.deals.map(function (deal, idx) {
                         return (
-                          <tr onClick={() => router.push(`https://www.cheapshark.com/redirect?dealID=${deal.dealID}`)} key={idx} className="transition duration-500 ease-in-out transform-gpu hover:-translate-y-1 hover:scale-105 cursor-pointer">
+                          <tr
+                            onClick={() =>
+                              router.push(
+                                `https://www.cheapshark.com/redirect?dealID=${deal.dealID}`
+                              )
+                            }
+                            key={idx}
+                            className="transition duration-500 ease-in-out transform-gpu hover:-translate-y-1 hover:scale-105 cursor-pointer"
+                          >
                             <td className="px-6 py-4 whitespace-nowrap">
                               <div className="flex items-center">
                                 <div className="ml-4">
