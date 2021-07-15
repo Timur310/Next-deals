@@ -1,5 +1,5 @@
 # Next-deals
-Simple project that display all active game sales across 32 stores powered with NextJs and CheapShark api
+Simple project that display all active game sales across 32 stores powered with NextJs and CheapShark api<br>
 *Some game links are invalid due to outdated SteamAppId
 ###
 
